@@ -6,42 +6,52 @@
 // 5. Then item dissapers from the list.
 
 
+var input = document.querySelector('input')
+var form = document.getElementById("add-todo")
+var itemlist = document.getElementById("todo-list")
+const todos = []
 
-var form = document.getElementById('add-todo')
-var itemList = document.getElementById('todo-list')
-var input = document.querySelector('input');
 
+form.onsubmit = function(e){
 
-form.onsubmit = function(event) {
-    // prevent the form submition
-    event.preventDefault ()
-// access form data
-    var item = document.querySelector('input').value
-    // and remove empty entries
-    if(item.trim() !== "") {
-       button.textContent = item
+  // prevent the form submition
+  e.preventDefault()
+  
+  var item = input.value.trim()
+  
+  if (item !== '') {
     var button = document.createElement('button')
     var list = document.createElement('li')
+    button.textContent = item
 
-       item.appendChild(list)
-       list.appendChild(button)
+    //add items to list//
+    itemlist.appendChild(list)
+    list.appendChild(button)
+    // reset the form field
+    input.value = ""
+    var count = 0
+   
+    
+    button.addEventListener('click', (e) => {
+      count++
+      // on one click
+      if (count === 1) {
+        button.style.textDecoration = "line-through"
+        // on 2 clicks
+      } else if (count === 2) {
+        var index = Array.from(itemlist.children).indexOf(list)
+        todos.splice(index, 1)
+        list.removeChild(button)
+        todos.push(item);
+      }
+    })
 
-       // reset the form field
-       input.value = ""
-        var count = 0
-       button.addEventListener ('click', e => {
-        count++
-
-        if(count === 1) {
-            button.style.textDecoration = 'line-through' 
-        } else uf (count === 2) {
-            list.removeChild(button)
-        }
-    } )
+    
+  } else {
+    form.reset()
+    return;
+  }
 }
-        else {
-            form.reset ()
-             return
-    }
-}
+
+
 
