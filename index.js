@@ -28,24 +28,21 @@ form.onsubmit = function(e){
     itemlist.appendChild(list)
     list.appendChild(button)
     // reset the form field
-    input.value = ""
+    input.value = ''
     var count = 0
    
     
     button.addEventListener('click', (e) => {
       count++
-      // on one click
+      // on 1 click
       if (count === 1) {
-        button.style.textDecoration = "line-through"
+        button.style.textDecoration = 'line-through'
         // on 2 clicks
       } else if (count === 2) {
-        var index = Array.from(itemlist.children).indexOf(list)
-        todos.splice(index, 1)
-        list.removeChild(button)
-        todos.push(item);
+        list.appendChild(button).remove()
+        itemlist.appendChild(list).remove()
       }
     })
-
     
   } else {
     form.reset()
